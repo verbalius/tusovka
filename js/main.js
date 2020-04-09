@@ -1,6 +1,7 @@
 function play(id){
   player = document.getElementById(id);
   bg = document.getElementById('video-player');
+  player.load();
   player.play();
   bg.play();
 }
