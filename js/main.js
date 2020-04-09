@@ -40,21 +40,3 @@ function volume(id, direction){
   	}
   }
 }
-
-// //Changes the volume up or down a specific number
-// function changeVolume(number, direction){
-//   //Checks to see if the volume is at zero, if so it doesn't go any further.
-//   if(activeSong.volume >= 0 && direction == "down"){
-//     activeSong.volume = activeSong.volume - (number / 100);
-//   }
-
-//   //Checks to see if the volume is at one, if so it doesn't go any higher.
-//     if(activeSong.volume activeSong.volume = activeSong.volume + (number / 100);
-//   }
-
-//   //Finds the percentage of the volume and sets the volume meter accordingly.
-//   var percentageOfVolume = activeSong.volume / 1;
-//   var percentageOfVolumeSlider = document.getElementById('volumeMeter').offsetWidth * percentageOfVolume;
-
-//   document.getElementById('volumeStatus').style.width = Math.round(percentageOfVolumeSlider) + "px";
-// }
