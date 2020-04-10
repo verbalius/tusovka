@@ -1,0 +1,65 @@
+name: CI-CD-to-AWS-Beanstalk
+env:
+  EB_PACKAGE_S3_BUCKET_NAME: "tusovka-flask-webapp"
+  EB_APPLICATION_NAME: "tusovka-flask-webapp"
+  EB_ENVIRONMENT_NAME: "TusovkaFlaskWebapp-env"
+  DEPLOY_PACKAGE_NAME: "tusovka-webapp-${{ github.sha }}.zip"
+  AWS_REGION_NAME: "eu-north-1"
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  ci-part:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Create zip deployment package
+      run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x ".git"
+    
+    - name: Configure my AWS access
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.MY_AWS_ACCESS_ID }}
+        aws-secret-access-key: ${{ secrets.MY_AWS_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION_NAME }}
+        
+    - name: Copy deployment package to S3 bucket
+      run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/
+    
+    - name: Done
+      run: echo "Copying package to S3 bucket was successfull" 
+
+  cd-part:
+    runs-on: ubuntu-latest
+    needs: [ci-part]
+    steps:
+      - name: Configure my AWS access
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.MY_AWS_ACCESS_ID }}
+          aws-secret-access-key: ${{ secrets.MY_AWS_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION_NAME }}
+      
+      - name: Create new version of Beanstalk app
+        run: |
+          aws elasticbeanstalk create-application-version \
+          --application-name ${{ env.EB_APPLICATION_NAME }} \
+          --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}", S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
+          --version-label "Version 1.0 build ${{ github.sha }}"
+          --description "Automatic delpoy from github repo https://github.com/verbalius/tusovka-flask-webapp"
+          
+      - name: Deploy new Beanstalk app
+        run: |
+          aws elasticbeanstalk update-environment \
+          --environment-name ${{ env.EB_ENVIRONMENT_NAME }} \
+          --version-label "Version 1.0 build ${{ github.sha }}"
+          
+      - name: Done
+        run: echo "Deployment of app to ELB was successfull"
+          
+          
+          
+          
