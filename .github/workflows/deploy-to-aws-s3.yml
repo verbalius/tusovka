@@ -1,0 +1,33 @@
+name: CI-CD-to-AWS-Beanstalk
+env:
+  EB_PACKAGE_S3_BUCKET_NAME: "tusovka-flask-webapp"
+  EB_APPLICATION_NAME: "tusovka-flask-webapp"
+  EB_ENVIRONMENT_NAME: "TusovkaFlaskWebapp-env"
+  DEPLOY_PACKAGE_NAME: "tusovka-webapp-${{ github.sha }}.zip"
+  AWS_REGION_NAME: "eu-north-1"
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  ci-part:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Create zip deployment package
+      run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x ".git"
+    
+    - name: Configure my AWS creds
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.MY_AWS_ACCESS_ID }}
+        aws-secret-access-key: ${{ secrets.MY_AWS_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION_NAME }}
+        
+    - name: Copy deployment package to S3 bucket
+      run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/
+    
+    - name: Finish
+      run: echo "Deployment of package to S3 was successfull" 
