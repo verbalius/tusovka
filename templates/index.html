@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mykola Radio | Home</title>
+	<meta charset="UTF-8">
+	<html lang="en-US">
+	<head profile="http://www.w3.org/2005/10/profile">
+	<link rel="icon" type="image/ico" href="/images/favicon.ico">
+	<link rel="stylesheet" href="/css/styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="/js/main.js"></script>
+</head>
+<body>
+<div id="bg-image"></div>
+<a id="header_link" href="/about">about</a>
+<video id="video-player" poster="https://media.giphy.com/media/hPlsN9Z6JNF4s/200_s.gif" loop="" autoplay="" width="100%" height="100%">
+    <source src="https://media.giphy.com/media/hPlsN9Z6JNF4s/giphy.mp4" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;">
+    <img src="https://media.giphy.com/media/hPlsN9Z6JNF4s/giphy.gif" title="Your browser does not support the mp4 video codec.">
+</video>
+<!-- Version of the app from jenkins -->
+
+<!-- ICECAST JSON DATA:
+http://server/status-json.xsl -->
+
+
+<!-- Radio media player -->
+<div id="player">
+	<table id="player_controls">
+		<tr>
+			<td><img id="player-play" onclick="play('bg_player')" src="/images/player-play.svg" alt="play"></td>
+			<td><img id="player-pause" onclick="pause('bg_player')" src="/images/player-pause.svg" alt="pause"></td>
+		</tr>
+		<tr>
+			<td><img id="player-vol-down" onclick="volume('bg_player','down')" src="/images/player-vol-down.svg" alt="vol-down"></td>
+			<td><img id="player-vol-up" onclick="volume('bg_player','up')" src="/images/player-vol-up.svg" alt="vol-up"></td>
+		</tr>
+	</table>
+</div>
+
+<!-- Audio stream -->
+<audio autoload="true" autoplay="true" controls="true" preload="metadata" id="bg_player">
+	<source src="http://176.58.99.7:8000/dnbww.mp3" type="audio/mpeg">
+	<source src="https://www.youtube.com/watch?v=5yx6BWlEVcY.mp4" type="audio/aac">
+</audio>
+
+<!-- About deployment -->
+<div id="build-info">
+	<a href="https://github.com/verbalius/my_simple_radio"><img src="https://github.com/verbalius/tusovka-flask-webapp/workflows/CI-CD-to-AWS-Beanstalk/badge.svg?branch=master">version 2.0</a>
+</div>
+</body>
+</html>
