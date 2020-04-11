@@ -59,7 +59,7 @@ function whats_cookin(mode) {
       parse_who_and_what(this.responseText);
     }
   };
-  xhttp.open("GET", "https://radio.tusovka.ml/status-json.xsl", true);
+  xhttp.open("GET", "whats_playin", true);
   xhttp.send();
 
   // checking who is playing every 30 seconds
