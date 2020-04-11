@@ -27,20 +27,10 @@ body {
 }
 
 a {
-	color: black;
+	color: white;
 	text-decoration: none;
 }
 
-#header_link {
-	position: absolute;
-	vertical-align: middle;
-	left: 5px;
-	bottom: 5px;
-	z-index: 900;
-	font-size: 1.8vw;
-	color: white;
-	font-family: monospace;
-}
 
 #video-player {
 	position: relative;
@@ -115,9 +105,29 @@ a {
 	opacity: 100%;
 }
 
+#whats_cookin {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	z-index: 900;
+	font-size: 1.8vw;
+	color: white;
+	font-family: monospace;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#footer {
+	display: inline;
+}
+
+
+/*Mobile accessiblility*/
+
 @media (orientation:portrait) {
 	#player_controls img {
-		height: 10vw;
+		height: 12vw;
 		width: auto;
 	}
 	#build-info img {
@@ -126,7 +136,7 @@ a {
 	#build-info a {
 		font-size: 1.8vh;
 	}
-	#header_link {
+	#whats_cookin {
 		font-size: 1.8vh;
 	}
 }

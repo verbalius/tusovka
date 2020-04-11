@@ -12,11 +12,12 @@
 </head>
 <body>
 <div id="bg-image"></div>
-<a id="header_link" href="/about">about</a>
 <video id="video-player" poster="https://media.giphy.com/media/hPlsN9Z6JNF4s/200_s.gif" loop="" autoplay="" width="100%" height="100%">
     <source src="https://media.giphy.com/media/hPlsN9Z6JNF4s/giphy.mp4" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;">
     <img src="https://media.giphy.com/media/hPlsN9Z6JNF4s/giphy.gif" title="Your browser does not support the mp4 video codec.">
 </video>
+
+
 <!-- Version of the app from jenkins -->
 
 <!-- ICECAST JSON DATA:
@@ -38,16 +39,21 @@ http://server/status-json.xsl -->
 </div>
 
 <!-- Audio stream -->
-<audio autoload="true" autoplay="true" controls="true" preload="metadata" id="bg_player">
-	<source src="http://radio.tusovka.ml/stream.ogg" type="audio/ogg">
-	<source src="http://radio.tusovka.ml/stream.mp3" type="audio/mpeg">
-	<source src="http://176.58.99.7:8000/dnbww.mp3" type="audio/mpeg">
-	<source src="https://www.youtube.com/watch?v=5yx6BWlEVcY.mp4" type="audio/aac">
+<audio autoload="true" autoplay="true" controls="true" preload="metadata" loop="loop" id="bg_player">
+	<source src="//radio.tusovka.ml/stream.ogg" type="audio/ogg">
+	<source src="//radio.tusovka.ml/stream.mp3" type="audio/mpeg">
+	<source src="lobby.mp3" type="audio/mpeg">
 </audio>
-
+<!-- <button style="bottom: 40px; position: absolute;" type="button" onclick="get_server_status()">Request data</button> -->
 <!-- About deployment -->
+<div id="footer">
+<ul id="whats_cookin">
+	<li><a id="whos_playin" href=""></a></li>
+	<li id="whats_playin"></li>
+</ul>
 <div id="build-info">
-	<a href="https://github.com/verbalius/my_simple_radio"><img src="https://github.com/verbalius/tusovka-flask-webapp/workflows/CI-CD-to-AWS-Beanstalk/badge.svg?branch=master">version 2.0</a>
+	<a href="https://github.com/verbalius/my_simple_radio"><img src="https://github.com/verbalius/tusovka-flask-webapp/workflows/CI-CD-to-AWS-Beanstalk/badge.svg?branch=master">what's new in v2.2</a>
+</div>
 </div>
 </body>
 </html>
