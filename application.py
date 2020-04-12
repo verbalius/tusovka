@@ -4,7 +4,7 @@
 # Github repo: verbalius/tusovka-flask-webapp
 #
 # ----------------------------------------------
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 import json
 from requests import get
 
@@ -12,6 +12,12 @@ application = Flask(__name__,
                     static_url_path='', 
                     static_folder='static/',)
 
+@application.before_request
+def before_request():
+    if not request.is_secure():
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 @application.route("/")
 def root():
