@@ -32,7 +32,12 @@ jobs:
         touch access.log general.log
         timeout 5m gunicorn -b 127.0.0.1:8000 application:application --access-logfile access.log --error-logfile general.log &
         sleep 2m;
-        curl 127.0.0.1:8000/;
+        url="https://localhost:5000";
+        status=$(curl -s -o /dev/null -w "%{http_code}" $url);
+        if [[ $status -lt "400" ]] && [[ $status -gt "000" ]]; then
+          echo "ok";
+          else echo "not ok";
+        fi;
 
     # Runs a set of commands using the runners shell
     - name: If crashes print logs
