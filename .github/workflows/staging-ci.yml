@@ -36,7 +36,10 @@ jobs:
         status=$(curl -s -o /dev/null -w "%{http_code}" $url);
         if [[ $status -lt "400" ]] && [[ $status -gt "000" ]]; then
           echo "ok";
-          else echo "not ok";
+          exit 0;
+        else
+          echo "not ok";
+          exit 1;
         fi;
 
     # Runs a set of commands using the runners shell
