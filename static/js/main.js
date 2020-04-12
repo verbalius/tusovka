@@ -69,17 +69,29 @@ function whats_cookin(mode) {
 function parse_who_and_what(raw_json_data) {
   var json_data = JSON.parse(raw_json_data);
   if ( json_data.icestats.source ) {
-    document.getElementById("whos_playin").innerHTML = json_data.icestats.source[0].server_name;
-    document.getElementById("whos_playin").innerHTML.href = '/'+json_data.icestats.source[0].server_name;
+    if ( json_data.icestats.source[0] ){
+      document.getElementById("whos_playin").innerHTML = json_data.icestats.source[0].server_name;
+      document.getElementById("whos_playin").href = '/'+json_data.icestats.source[0].server_name;
 
-    // mp3 and ogg have different format of metadata in resulting json, need to parse them differently
+      // mp3 and ogg have different format of metadata in resulting json, need to parse them differently
 
-    if ( json_data.icestats.source[0].server_type == "audio/mpeg" ){
-      document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].title;
-    } else if ( json_data.icestats.source[0].server_type == "application/ogg" ){
-      document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].artist + json_data.icestats.source[0].title;
+      if ( json_data.icestats.source[0].server_type == "audio/mpeg" ){
+        document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].title;
+      } else if ( json_data.icestats.source[0].server_type == "application/ogg" ){
+        document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].artist + json_data.icestats.source[0].title;
+      } else {
+        document.getElementById("whats_playin").innerHTML = "ID : ID";
+      }
     } else {
-      document.getElementById("whats_playin").innerHTML = "ID : ID";
+      document.getElementById("whos_playin").innerHTML = json_data.icestats.source.server_name;
+      document.getElementById("whos_playin").href = '/'+json_data.icestats.source.server_name;
+      if ( json_data.icestats.source.server_type == "audio/mpeg" ){
+        document.getElementById("whats_playin").innerHTML = json_data.icestats.source.title;
+      } else if ( json_data.icestats.source.server_type == "application/ogg" ){
+        document.getElementById("whats_playin").innerHTML = json_data.icestats.source.artist + json_data.icestats.source.title;
+      } else {
+        document.getElementById("whats_playin").innerHTML = "ID : ID";
+      }
     }
   } else {
     document.getElementById("whos_playin").innerHTML = "Nobody's playing..";
