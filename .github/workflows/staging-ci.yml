@@ -34,7 +34,7 @@ jobs:
         touch access.log general.log
         timeout 5m gunicorn -b 127.0.0.1:8000 application:application --access-logfile access.log --error-logfile general.log &
         sleep 2m;
-        if [[ $(curl -s -o /dev/null -w "%{http_code}" ) -lt "400" ${{ env.APP_URL }} ]] && [[ $(curl -s -o /dev/null -w "%{http_code}" ${{ env.APP_URL }} ) -ge "200" ]]; then
+        if [[ $(curl -s -o /dev/null -w "%{http_code}" ${{ env.APP_URL }} ) -lt "400" ]] && [[ $(curl -s -o /dev/null -w "%{http_code}" ${{ env.APP_URL }} ) -ge "200" ]]; then
         echo "ok";
           exit 0;
         else
