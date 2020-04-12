@@ -4,7 +4,7 @@
 # Github repo: verbalius/tusovka-flask-webapp
 #
 # ----------------------------------------------
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template
 import json
 from requests import get
 
