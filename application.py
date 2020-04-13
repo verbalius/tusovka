@@ -12,7 +12,6 @@ application = Flask(__name__,
                     static_url_path='', 
                     static_folder='static/',)
 
-
 @application.route("/")
 def root():
     return render_template("index.html")
