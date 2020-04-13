@@ -3,10 +3,12 @@
 ![Staging-CI](https://github.com/verbalius/tusovka-flask-webapp/workflows/Staging-CI/badge.svg)
 
 
-## Architecture:
+## Production stable:
+
+https://tusovka.ml
 
 ![architecture](/architecture.png)
 
-## Heroku
+## Staging Heroku
 
 https://radio-tusovka.herokuapp.com
