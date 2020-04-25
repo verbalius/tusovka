@@ -15,7 +15,7 @@ jobs:
 
     - name: Create ssh secret key
       run: |
-      tee > ~/.ssh/id_rsa <EOF
+      tee > ~/.ssh/id_rsa <<EOF
       ${{ secrets.SSH_PRIVATE_KEY }}
       EOF
 
