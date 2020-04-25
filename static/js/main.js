@@ -63,7 +63,7 @@ function whos_here(listener_id){
   var url = "whos_here/"+listener_id
   xhttp.open("GET", url, true);
   xhttp.send();
-  setTimeout(whats_cookin, 200000);
+  setTimeout(whos_here, 200000);
 }
 
 function whats_cookin(mode) {
