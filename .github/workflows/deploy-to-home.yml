@@ -7,11 +7,11 @@ on:
     branches: [ master ]
 
 jobs:
-  ci-part:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Make sure ssh is installed
-      run: apt update && apt install ssh
+      run: sudo apt-get update && sudo apt-get install ssh
 
     - name: Create ssh secret key
       run: echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_rsa
