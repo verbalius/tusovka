@@ -1,6 +1,7 @@
 name: CD-to-Home-Server
 env:
   VERSION: "2.2"
+  server_ip: "93.75.92.82"
 
 on:
   push:
@@ -27,12 +28,19 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no \
         -i ~/.ssh/id_rsa \
-        user@93.75.92.82 \
-        'pkill -9 gunicorn &&\
+        user@${{ env.server_ip }} \
+        "pkill -9 gunicorn &&\
         cd ~/tusovka-flask-webapp &&\
         git fetch origin master &&\
         git reset --hard origin/master &&\
         git clean -f -d &&\
         source env/bin/activate &&\
-        pip install -r requirements.txt &&\
-        nohup make prod 1>> ~/logs/tusovka.out 2>> ~/logs/tusovka.err < /dev/null &'
+        pip install -r requirements.txt"
+    
+    - name: Start server
+      run: | 
+        ssh -o StrictHostKeyChecking=no \
+        -i ~/.ssh/id_rsa \
+         user@${{ env.server_ip }} \
+         "cd ~/tusovka-flask-webapp &&\
+         nohup make prod 1>> ~/logs/tusovka.out 2>> ~/logs/tusovka.err < /dev/null &"
