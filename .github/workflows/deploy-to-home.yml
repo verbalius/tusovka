@@ -20,6 +20,9 @@ jobs:
         ${{ secrets.SSH_PRIVATE_KEY }}
         EOF
 
+    - name: Change permisions to file
+      run: chmod 600 ~/.ssh/id_rsa
+
     - name: Connect to server and make it pull new changes from repo
       run: |
         ssh -o StrictHostKeyChecking=no \
