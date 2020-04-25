@@ -1,6 +1,5 @@
 whats_cookin();
-var random_id = new Array(8).join().replace(/(.|$)/g, function(){return ((Math.random()*36)|0).toString(36);});
-whos_here(random_id);
+whos_here();
 
 function play(id){
   clearTimeout(whats_cookin);
@@ -48,22 +47,22 @@ function volume(id, direction){
   }
 }
 
-function whos_here(listener_id){
+function whos_here(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange=function() {
     if (this.readyState == 4 && this.status == 200) {
       var count = this.responseText;
       if ( count == '1' ){
-        document.getElementById("whos_here").innerHTML = "You are the one"
+        document.getElementById("whos_here").innerHTML = "You are the one listening"
       } else {
         document.getElementById("whos_here").innerHTML = "Listeners: " + count;
       }
     }
   };
-  var url = "whos_here/"+listener_id
+  var url = "whos_here"
   xhttp.open("GET", url, true);
   xhttp.send();
-  setTimeout(whos_here, 200000);
+  setTimeout(whos_here, 30000);
 }
 
 function whats_cookin(mode) {

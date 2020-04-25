@@ -25,25 +25,21 @@ def whats_playin():
     return get('http://radio.tusovka.ml/status-json.xsl').content
 
 
-@application.route("/whos_here/<string:listener_id>")
-def whos_here(listener_id):
-    # record who is on the site listening
+@application.route("/whos_here")
+def whos_here():
+    # record who is currently on the site listening
+    # attach a timestamp whenver get a whos_here request
     now = datetime.datetime.now()
-    listeners[listener_id] = now.minute
+    listeners[request.remote_addr] = now.minute
     return str(len(listeners))
 
 @application.route("/about")
 def about():
     return render_template("about.html")
 
-@application.route("/version")
-def app_version():
-    return "2.0"
-
 def whos_tf_here(what_to_do="run"):
-    print(what_to_do)
     now = datetime.datetime.now()
-    
+
     # kick inactive listeners
     for listener in listeners:
         if (abs(listeners[listener] - now.minute)) > 5:
@@ -52,10 +48,11 @@ def whos_tf_here(what_to_do="run"):
     # schedule next occurence in 5 minutes if not "stop"
     watcher_thread = threading.Timer(300, whos_tf_here)
     if what_to_do == "stop":
-        print(what_to_do)
+        print("[INFO] Kicker watchdog stopping..")
         watcher_thread.cancel()
         return 0
     else:
+        print("[INFO] Kicker watchdog starting..")
         watcher_thread.start()
 
 def interrupt():
