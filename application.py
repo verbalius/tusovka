@@ -22,7 +22,7 @@ def root():
 
 @application.route("/whats_playin")
 def whats_playin():
-    return get('http://radio.tusovka.ml/status-json.xsl').content
+    return get('http://radio.tusovka.ml:8000/status-json.xsl').content
 
 
 @application.route("/whos_here")
