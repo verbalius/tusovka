@@ -18,12 +18,14 @@ jobs:
 
     - name: Connect to server and make it pull new changes from repo
       run: |
-      ssh -i ~/.ssh/id_rsa user@93.75.92.82 \
-      'pkill gunicorn ;\
+      ssh -o StrictHostKeyChecking=no \
+      -i ~/.ssh/id_rsa \
+      user@93.75.92.82 \
+      'pkill gunicorn &&\
       cd ~/tusovka-flask-webapp &&\
       git fetch origin master &&\
       git reset --hard origin/master &&\
-      git clean -f -d ;\
+      git clean -f -d &&\
       source env/bin/activate &&\
       pip install -r requirements.txt &&\
       nohup make prod 1>> ~/logs/tusovka.out 2>> ~/logs/tusovka.err < /dev/null &'
