@@ -1,4 +1,6 @@
 whats_cookin();
+var random_id = new Array(8).join().replace(/(.|$)/g, function(){return ((Math.random()*36)|0).toString(36);});
+whos_here(random_id);
 
 function play(id){
   clearTimeout(whats_cookin);
@@ -46,6 +48,24 @@ function volume(id, direction){
   }
 }
 
+function whos_here(listener_id){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange=function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var count = this.responseText;
+      if ( count == '1' ){
+        document.getElementById("whos_here").innerHTML = "You are the one"
+      } else {
+        document.getElementById("whos_here").innerHTML = "Listeners: " + count;
+      }
+    }
+  };
+  var url = "whos_here/"+listener_id
+  xhttp.open("GET", url, true);
+  xhttp.send();
+  setTimeout(whats_cookin, 200000);
+}
+
 function whats_cookin(mode) {
   if (mode == "stop") {
     clearTimeout(whats_cookin);
@@ -78,7 +98,7 @@ function parse_who_and_what(raw_json_data) {
       if ( json_data.icestats.source[0].server_type == "audio/mpeg" ){
         document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].title;
       } else if ( json_data.icestats.source[0].server_type == "application/ogg" ){
-        document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].artist + json_data.icestats.source[0].title;
+        document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].artist + ' - ' + json_data.icestats.source[0].title;
       } else {
         document.getElementById("whats_playin").innerHTML = "ID : ID";
       }
@@ -88,7 +108,7 @@ function parse_who_and_what(raw_json_data) {
       if ( json_data.icestats.source.server_type == "audio/mpeg" ){
         document.getElementById("whats_playin").innerHTML = json_data.icestats.source.title;
       } else if ( json_data.icestats.source.server_type == "application/ogg" ){
-        document.getElementById("whats_playin").innerHTML = json_data.icestats.source.artist + json_data.icestats.source.title;
+        document.getElementById("whats_playin").innerHTML = json_data.icestats.source.artist + ' - ' + json_data.icestats.source.title;
       } else {
         document.getElementById("whats_playin").innerHTML = "ID : ID";
       }
