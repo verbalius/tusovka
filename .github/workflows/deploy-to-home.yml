@@ -28,7 +28,7 @@ jobs:
         ssh -o StrictHostKeyChecking=no \
         -i ~/.ssh/id_rsa \
         user@93.75.92.82 \
-        'pkill gunicorn &&\
+        'pkill -9 gunicorn &&\
         cd ~/tusovka-flask-webapp &&\
         git fetch origin master &&\
         git reset --hard origin/master &&\
