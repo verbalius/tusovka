@@ -1,0 +1,29 @@
+name: CD-to-Home-Server
+env:
+  VERSION: "2.2"
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  ci-part:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Make sure ssh is installed
+      run: apt update && apt install ssh
+
+    - name: Create ssh secret key
+      run: echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_rsa
+
+    - name: Connect to server and make it pull new changes from repo
+      run: |
+      ssh -i ~/.ssh/id_rsa user@93.75.92.82 \
+      'pkill gunicorn ;\
+      cd ~/tusovka-flask-webapp &&\
+      git fetch origin master &&\
+      git reset --hard origin/master &&\
+      git clean -f -d ;\
+      source env/bin/activate &&\
+      pip install -r requirements.txt &&\
+      nohup make prod 1>> ~/logs/tusovka.out 2>> ~/logs/tusovka.err < /dev/null &'
