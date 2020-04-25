@@ -43,7 +43,7 @@ def whos_tf_here(what_to_do="run"):
     # kick inactive listeners
     for listener in listeners:
         if (abs(listeners[listener] - now.minute)) > 5:
-            listeners.pop(listener_id, None)
+            listeners.pop(listener, None)
 
     # schedule next occurence in 5 minutes if not "stop"
     watcher_thread = threading.Timer(300, whos_tf_here)
