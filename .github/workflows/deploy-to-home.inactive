@@ -1,0 +1,48 @@
+name: CD-to-Home-Server
+env:
+  VERSION: "2.2"
+  server_ip: "93.75.92.82"
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Make sure ssh is installed
+      run: sudo apt-get update && sudo apt-get install ssh
+
+    - name: Create ssh secret key
+      run: |
+        mkdir ~/.ssh &&\
+        tee > ~/.ssh/id_rsa <<EOF
+        ${{ secrets.SSH_PRIVATE_KEY }}
+        EOF
+
+    - name: Change permisions to file
+      run: chmod 600 ~/.ssh/id_rsa
+
+    - name: Connect to server and make it pull new changes from repo
+      run: |
+        ssh -o StrictHostKeyChecking=no \
+        -i ~/.ssh/id_rsa \
+        user@${{ env.server_ip }} \
+        "pkill -9 gunicorn &&\
+        cd ~/tusovka-flask-webapp &&\
+        git fetch origin master &&\
+        git reset --hard origin/master &&\
+        git clean -f -d &&\
+        source env/bin/activate &&\
+        pip install -r requirements.txt;
+        exit 0"
+    
+    - name: Start gunicorn server
+      run: | 
+        ssh -f -o StrictHostKeyChecking=no \
+        -i ~/.ssh/id_rsa \
+         user@${{ env.server_ip }} \
+         "cd ~/tusovka-flask-webapp &&\
+         source env/bin/activate &&\
+         nohup make prod 1>> ~/logs/tusovka.out 2>> ~/logs/tusovka.err < /dev/null &"

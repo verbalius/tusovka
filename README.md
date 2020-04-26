@@ -1,16 +1,20 @@
 # Web app for listening to my radio
-![CI-CD-to-AWS-Beanstalk](https://github.com/verbalius/tusovka-flask-webapp/workflows/CI-CD-to-AWS-Beanstalk/badge.svg)
-![Staging-CI](https://github.com/verbalius/tusovka-flask-webapp/workflows/Staging-CI/badge.svg)
 
 ## Staging Heroku
+
+![Staging-CI](https://github.com/verbalius/tusovka-flask-webapp/workflows/Staging-CI/badge.svg)
 
 https://radio-tusovka.herokuapp.com
 
 ## Production stable:
 
-> AWS Free tier time exceeded, migrating to home server.. 
+![CD-to-Home-Server](https://github.com/verbalius/tusovka-flask-webapp/workflows/CD-to-Home-Server/badge.svg)
 
-https://tusovka.ml
+http://tusovka.ml:8080
+
+Currently can't make port 80 or 443 work because of ISP probably..
+
+> AWS Free tier time exceeded, migrated to home server..
 
 ![architecture](/architecture.png)
 
