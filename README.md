@@ -10,7 +10,7 @@ https://radio-tusovka.herokuapp.com
 
 ![CD-to-Home-Server](https://github.com/verbalius/tusovka-flask-webapp/workflows/CD-to-Home-Server/badge.svg)
 
-http://tusovka.ml:8080
+http://tusovka.ml:5000
 
 Currently can't make port 80 or 443 work because of ISP probably..
 
