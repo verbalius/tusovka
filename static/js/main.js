@@ -1,3 +1,4 @@
+var random_id = new Array(8).join().replace(/(.|$)/g, function(){return ((Math.random()*36)|0).toString(36);});
 whats_cookin();
 whos_here();
 
@@ -59,10 +60,10 @@ function whos_here(){
       }
     }
   };
-  var url = "whos_here"
+  var url = "whos_here"+"/"+random_id //global random id see 1st line
   xhttp.open("GET", url, true);
   xhttp.send();
-  setTimeout(whos_here, 30000);
+  setTimeout(whos_here, 60000); //repeat every minute
 }
 
 function whats_cookin(mode) {

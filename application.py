@@ -39,16 +39,16 @@ def whats_playin():
     return get('http://radio.tusovka.ml:8000/status-json.xsl').content
 
 
-@application.route("/whos_here")
-def whos_here():
+@application.route("/whos_here/<id>")
+def whos_here(id):
     # record who is currently on the site listening
     # attach a timestamp whenver get a whos_here request
     now = datetime.datetime.now().minute
-    pattern = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
-    if pattern.match(request.remote_addr):
-        ip = request.remote_addr
+    pattern = re.compile("^[a-zA-Z0-9]+$")
+    if pattern.match(id):
+        ip = id
     else:
-        ip = "someone at minute"+str(now)
+        ip = "someone"
 
     with sql.connect("active_users.db") as con:
         con.row_factory = sql.Row
@@ -81,11 +81,11 @@ def whos_tf_here(what_to_do="run"):
     # kick inactive listeners if they were out for 6 minutes
     with sql.connect("active_users.db") as con:
         cur = con.cursor()
-        cur.execute("DELETE FROM online_users WHERE ABS(time-? > 6);", [now])
+        cur.execute("DELETE FROM online_users WHERE ABS(time-? > 2);", [now])
         con.commit()
 
-    # schedule next occurence in 5 minutes if not "stop"
-    watcher_thread = threading.Timer(300, whos_tf_here)
+    # schedule next occurence in 3 minutes if not "stop"
+    watcher_thread = threading.Timer(180, whos_tf_here)
     if what_to_do == "stop":
         print("[INFO] Kicker watchdog stopping..")
         watcher_thread.cancel()
