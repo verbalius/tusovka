@@ -53,7 +53,7 @@ def whos_here():
     with sql.connect("active_users.db") as con:
         con.row_factory = sql.Row
         cur = con.cursor()
-        cur.execute("SELECT * FROM online_users WHERE ip=?;", [ip])
+        cur.execute("SELECT * FROM online_users")
         rows = cur.fetchall()
 
         if cur.execute("SELECT * FROM online_users WHERE ip=?;", [ip]).fetchall():
