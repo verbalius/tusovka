@@ -44,11 +44,11 @@ def whos_here():
     # record who is currently on the site listening
     # attach a timestamp whenver get a whos_here request
     now = datetime.datetime.now().minute
-    pattern = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
+    pattern = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
     if pattern.match(request.remote_addr):
         ip = request.remote_addr
     else:
-        return "1" # show that you are the only one listener
+        ip = "someone at minute"+str(now)
 
     with sql.connect("active_users.db") as con:
         con.row_factory = sql.Row
@@ -56,19 +56,20 @@ def whos_here():
         cur.execute("SELECT * FROM online_users WHERE ip=?;", [ip])
         rows = cur.fetchall()
 
-        if rows:
+        if cur.execute("SELECT * FROM online_users WHERE ip=?;", [ip]).fetchall():
             cur.execute("UPDATE online_users SET time=? WHERE ip=?;",(now,ip))
             con.commit()
         else:
             # ------------------- name TEXT, time INTEGER ------------------- 
             cur.execute("INSERT INTO online_users (ip,time) VALUES (?,?);",(ip,now))  
             con.commit()
+
         if len(rows) == 0:
             return "1"
 
         return str(len(rows))
 
-    return "1" # show that you are the only one listener if it doesn't work
+    return 0
 
 @application.route("/about")
 def about():
