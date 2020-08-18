@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  flaskapp:
+    build: .
+    volumes:
+      - .:/app/
+      - ./static:/app/static
+    networks:
+      - nginx_network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 5000:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d
+      - ./static:/app/static
+    depends_on:
+      - flaskapp
+    networks:
+      - nginx_network
+
+  icecast:
+    image: moul/icecast
+    volumes:
+      - ./icecast_logs:/var/log/icecast2
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - ICECAST_SOURCE_PASSWORD=aaaa
+      - ICECAST_ADMIN_PASSWORD=bbbb
+      - ICECAST_PASSWORD=cccc
+      - ICECAST_RELAY_PASSWORD=dddd
+      - ICECAST_HOSTNAME=eeee
+    ports:
+      - 8000:8000
+
+networks:
+  nginx_network:
+    driver: bridge
