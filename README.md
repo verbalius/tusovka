@@ -14,7 +14,7 @@ http://tusovka.ml
 
 Currently can't make port 80 or 443 work because of ISP probably..
 
-> AWS Free tier time exceeded, migrated to home server..
+> GCP host micro vm expect slow connection
 
 ### AWS
 
