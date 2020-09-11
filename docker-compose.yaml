@@ -6,16 +6,18 @@ services:
     build: .
     volumes:
       - .:/app/
-      - ./static:/app/static
+      - ./static:/opt/services/flaskapp/src
     networks:
       - nginx_network
-
+    ports:
+      - 5000:5000
+  
   nginx:
     image: nginx:latest
     ports:
-      - 5000:80
+      - 80:80
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx:/etc/nginx/conf.d
       - ./static:/app/static
     depends_on:
       - flaskapp
@@ -25,7 +27,6 @@ services:
   icecast:
     image: moul/icecast
     volumes:
-      - ./icecast_logs:/var/log/icecast2
       - /etc/localtime:/etc/localtime:ro
     environment:
       - ICECAST_SOURCE_PASSWORD=aaaa
