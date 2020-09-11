@@ -43,7 +43,7 @@ def whats_playin():
 def whos_here():
     # record who is currently on the site listening
     # attach a timestamp whenver get a whos_here request
-    id = request.remote_addr
+    ip = request.remote_addr
     now = datetime.datetime.now().minute
     # pattern = re.compile("^[a-zA-Z0-9]+$")
     # if pattern.match(id):
