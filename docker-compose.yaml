@@ -16,9 +16,11 @@ services:
     image: nginx:latest
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./static:/app/static
+      - ./ssl-certificates:/etc/nginx/certs
     depends_on:
       - flaskapp
     networks:
