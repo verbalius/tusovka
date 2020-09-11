@@ -60,7 +60,8 @@ function whos_here(){
       }
     }
   };
-  var url = "whos_here"+"/"+random_id //global random id see 1st line
+  var url = "whos_here"
+  //+"/"+random_id //global random id see 1st line
   xhttp.open("GET", url, true);
   xhttp.send();
   setTimeout(whos_here, 60000); //repeat every minute

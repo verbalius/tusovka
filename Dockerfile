@@ -3,7 +3,7 @@ LABEL maintainer verbalius@ex.ua
 
 WORKDIR /app
 COPY ./requirements.txt /app/requirements.txt
-COPY . /app
+# COPY . /app
 RUN pip install -r requirements.txt
 RUN mkdir -p /var/logs/tusovka/
 
