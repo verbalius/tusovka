@@ -45,11 +45,11 @@ def whos_here():
     # attach a timestamp whenver get a whos_here request
     id = request.remote_addr
     now = datetime.datetime.now().minute
-    pattern = re.compile("^[a-zA-Z0-9]+$")
-    if pattern.match(id):
-        ip = id
-    else:
-        ip = "someone"
+    # pattern = re.compile("^[a-zA-Z0-9]+$")
+    # if pattern.match(id):
+    #     ip = id
+    # else:
+    #     ip = "someone"
 
     with sql.connect("active_users.db") as con:
         con.row_factory = sql.Row
