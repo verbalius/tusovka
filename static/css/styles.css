@@ -14,7 +14,7 @@ body {
 }
 
 #bg-image {
-  background-image: url("/images/back.jpg");
+  	background-image: url("/images/back.jpg");
 	filter: blur(20px);
 	-webkit-filter: blur(20px);
 	height: 120%;
@@ -81,28 +81,23 @@ a {
     filter: invert(100%);
 }
 
-#build-info a {
+#chat {
 	position: absolute;
 	vertical-align: middle;
 	font-family: monospace;
 	color: white;
 	font-size: 1.8vw;
+	top: 5px;
 	right: 5px;
 	bottom: 5px;
+	width: 30vw;
+	height: 90vh;
+	z-index: 900;
 }
 
-#build-info img {
-	position: absolute;
-	right: 0;
-	width: 20vw;
-	opacity: 0%;
-	z-index: 901;
-	transition-duration: 0.7s;
-}
-
-
-#build-info img:hover {
-	opacity: 100%;
+#hack-chat {
+	width: 100%;
+	height: 100%;
 }
 
 #whats_cookin {
@@ -123,6 +118,10 @@ a {
 }
 
 
+#hack-chat {
+	display: none;
+}
+
 /*Mobile accessiblility*/
 
 @media (orientation:portrait) {
@@ -130,10 +129,10 @@ a {
 		height: 12vw;
 		width: auto;
 	}
-	#build-info img {
+	#chat img {
 		display: none;
 	}
-	#build-info a {
+	#chat a {
 		font-size: 1.8vh;
 	}
 	#whats_cookin {

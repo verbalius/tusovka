@@ -7,6 +7,9 @@ function play(id){
   whats_cookin();
   player = document.getElementById(id);
   bg = document.getElementById('video-player');
+  button = document.getElementById('player-play');
+  button.setAttribute("src", "/images/player-pause.svg"); 
+  button.setAttribute("onclick", "pause('bg_player')"); 
   player.load();
   player.play();
   bg.play();
@@ -16,6 +19,9 @@ function pause(id){
   whats_cookin("stop");
   player = document.getElementById(id);
   bg = document.getElementById('video-player');
+  button = document.getElementById('player-play');
+  button.setAttribute("src", "/images/player-play.svg"); 
+  button.setAttribute("onclick", "play('bg_player')"); 
   player.pause();
   bg.pause();
 }
@@ -46,6 +52,22 @@ function volume(id, direction){
   		player.volume = player.volume + 1/steps;
   	}
   }
+}
+
+function activate_chat() {
+  chat = document.getElementById('hack-chat');
+  chat.setAttribute("src", "https://hack.chat/?radiotusovka"); 
+  chat.setAttribute("style", "display: block")
+  button = document.getElementById('chat-toggle');
+  button.setAttribute("onclick", "deactivate_chat()"); 
+}
+
+function deactivate_chat() {
+  chat = document.getElementById('hack-chat');
+  chat.setAttribute("src", ""); 
+  chat.setAttribute("style", "display: none")
+  button = document.getElementById('chat-toggle');
+  button.setAttribute("onclick", "activate_chat()"); 
 }
 
 function whos_here(){

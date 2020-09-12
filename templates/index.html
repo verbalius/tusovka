@@ -22,7 +22,7 @@
 	<table id="player_controls">
 		<tr>
 			<td><img id="player-play" onclick="play('bg_player')" src="/images/player-play.svg" alt="play"></td>
-			<td><img id="player-pause" onclick="pause('bg_player')" src="/images/player-pause.svg" alt="pause"></td>
+			<td><img id="chat-toggle" onclick="activate_chat()" src="/images/chat.svg" alt="chat"></td>
 		</tr>
 		<tr>
 			<td><img id="player-vol-down" onclick="volume('bg_player','down')" src="/images/player-vol-down.svg" alt="vol-down"></td>
@@ -44,9 +44,12 @@
 	<li><a id="whos_playin" href=""></a></li>
 	<li id="whats_playin"></li>
 </ul>
-<div id="build-info">
-	<a target="_blank" rel="noopener noreferrer" href="https://hack.chat/?radiotusovka">join live chat</a>
-</div>
+
+<!-- hack chat section -->
+<dir id="chat">
+	<iframe id="hack-chat" src=""></iframe>
+</dir>
+
 </div>
 </body>
 </html>
