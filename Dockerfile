@@ -9,4 +9,4 @@ RUN mkdir -p /var/logs/tusovka/
 
 EXPOSE 5000
 
-CMD ["/usr/local/bin/gunicorn", "--workers", "3", "--bind", "0.0.0.0:5000", "application:application", "--access-logfile", "/var/logs/tusovka/access.log", "--error-logfile", "/var/logs/tusovka/general.log"]
+CMD ["/usr/local/bin/gunicorn", "--workers", "3", "--reload", "--bind", "0.0.0.0:5000", "application:application", "--access-logfile", "/var/logs/tusovka/access.log", "--error-logfile", "/var/logs/tusovka/general.log"]
