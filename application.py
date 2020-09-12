@@ -43,7 +43,7 @@ def whats_playin():
 
 
 @application.route("/whos_here")
-def whos_here():
+def whos_here(id):
     # record who is currently on the site listening
     # attach a timestamp whenever get a whos_here request
     _id = request.args.get('id')
