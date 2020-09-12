@@ -101,7 +101,7 @@ function whos_here(){
     }
   };
   var url = "whos_here"
-  var params = `/${getSessionID()}`
+  var params = `?id=${getSessionID()}`
   //+"/"+random_id //global random id see 1st line
   xhttp.open("GET", url+params, true);
   xhttp.send();

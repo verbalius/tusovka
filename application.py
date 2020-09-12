@@ -42,8 +42,8 @@ def whats_playin():
     return get('http://radio.tusovka.ml:8000/status-json.xsl').content
 
 
-@application.route("/whos_here/<id>")
-def whos_here(id):
+@application.route("/whos_here")
+def whos_here():
     # record who is currently on the site listening
     # attach a timestamp whenever get a whos_here request
     _id = request.args.get('id')
