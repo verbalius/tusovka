@@ -17,7 +17,7 @@ function play(id){
   player = document.getElementById(id);
   // bg = document.getElementById('video-player');
   button = document.getElementById('player-play');
-  button.innerHTML = "pause"; 
+  document.getElementById('player-play').innerHTML = "pause"; 
   button.setAttribute("onclick", "pause('bg_player')"); 
   player.load();
   player.play();
@@ -71,7 +71,7 @@ function activate_chat() {
   chat.setAttribute("style", "display: table-cell")
   chat_header.setAttribute("style", "display: table-header-group")
   button = document.getElementById('chat-toggle');
-  button.innerHTML = "Deactivate chat"
+  document.getElementById('chat-toggle').innerHTML = "Deactivate chat"
   button.setAttribute("onclick", "deactivate_chat()"); 
 }
 
@@ -83,7 +83,7 @@ function deactivate_chat() {
   chat.setAttribute("style", "display: none")
   chat_header.setAttribute("style", "display: none")
   button = document.getElementById('chat-toggle');
-  button.innerHTML = "Activate chat"
+  document.getElementById('chat-toggle').innerHTML = "Activate chat"
   button.setAttribute("onclick", "activate_chat()"); 
 }
 
