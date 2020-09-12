@@ -155,6 +155,8 @@ function parse_who_and_what(raw_json_data) {
         document.getElementById("whats_playin").innerHTML = "ID : ID";
       }
     }
+
+    document.getElementById("stream_description").innerHTML = json_data.icestats.source.server_description;
   } else {
     document.getElementById("whos_playin").innerHTML = "Nobody's playing..";
     document.getElementById("whats_playin").innerHTML = "Check back later ;)";
