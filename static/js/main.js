@@ -1,5 +1,6 @@
 whats_cookin();
 whos_here();
+play();
 
 function getSessionID() {
   let _id = localStorage['sessionID']
@@ -14,24 +15,24 @@ function play(id){
   clearTimeout(whats_cookin);
   whats_cookin();
   player = document.getElementById(id);
-  bg = document.getElementById('video-player');
+  // bg = document.getElementById('video-player');
   button = document.getElementById('player-play');
-  button.setAttribute("src", "/images/player-pause.svg"); 
+  button.innerHTML = "pause"; 
   button.setAttribute("onclick", "pause('bg_player')"); 
   player.load();
   player.play();
-  bg.play();
+  // bg.play();
 }
 
 function pause(id){
   whats_cookin("stop");
   player = document.getElementById(id);
-  bg = document.getElementById('video-player');
+  // bg = document.getElementById('video-player');
   button = document.getElementById('player-play');
-  button.setAttribute("src", "/images/player-play.svg"); 
+  button.innerHTML = "play"; 
   button.setAttribute("onclick", "play('bg_player')"); 
   player.pause();
-  bg.pause();
+  // bg.pause();
 }
 
 volume_click_counter = 0;
@@ -63,18 +64,26 @@ function volume(id, direction){
 }
 
 function activate_chat() {
-  chat = document.getElementById('hack-chat');
-  chat.setAttribute("src", "https://hack.chat/?radiotusovka"); 
-  chat.setAttribute("style", "display: block")
+  chat_header = document.getElementById('chat_header');
+  chat = document.getElementById('chat_frame');
+  chat_iframe = document.getElementById('chat_iframe');
+  chat_iframe.setAttribute("src", "https://hack.chat/?radiotusovka"); 
+  chat.setAttribute("style", "display: table-cell")
+  chat_header.setAttribute("style", "display: table-header-group")
   button = document.getElementById('chat-toggle');
+  button.innerHTML = "Deactivate chat"
   button.setAttribute("onclick", "deactivate_chat()"); 
 }
 
 function deactivate_chat() {
-  chat = document.getElementById('hack-chat');
-  chat.setAttribute("src", ""); 
+  chat_header = document.getElementById('chat_header');
+  chat = document.getElementById('chat_frame');
+  chat_iframe = document.getElementById('chat_iframe');
+  chat_iframe.setAttribute("src", "");
   chat.setAttribute("style", "display: none")
+  chat_header.setAttribute("style", "display: none")
   button = document.getElementById('chat-toggle');
+  button.innerHTML = "Activate chat"
   button.setAttribute("onclick", "activate_chat()"); 
 }
 
@@ -102,8 +111,8 @@ function whos_here(){
 function whats_cookin(mode) {
   if (mode == "stop") {
     clearTimeout(whats_cookin);
-    document.getElementById("whos_playin").innerHTML = "";
-    document.getElementById("whats_playin").innerHTML = "Paused";
+    document.getElementById("whos_playin").innerHTML = "Press play to fetch";
+    document.getElementById("whats_playin").innerHTML = "Press play to fetch";
     return;
   }
   var xhttp = new XMLHttpRequest();

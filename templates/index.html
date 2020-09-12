@@ -11,46 +11,75 @@
 	<script src="/js/main.js"></script>
 </head>
 <body>
-<div id="bg-image"></div>
-<video id="video-player" poster="https://media.giphy.com/media/hPlsN9Z6JNF4s/200_s.gif" loop="" autoplay="" width="100%" height="100%">
-    <source src="https://media.giphy.com/media/hPlsN9Z6JNF4s/giphy.mp4" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;">
-    <img src="https://media.giphy.com/media/hPlsN9Z6JNF4s/giphy.gif" title="Your browser does not support the mp4 video codec.">
-</video>
-
-<!-- Radio media player -->
-<div id="player">
-	<table id="player_controls">
-		<tr>
-			<td><img id="player-play" onclick="play('bg_player')" src="/images/player-play.svg" alt="play"></td>
-			<td><img id="chat-toggle" onclick="activate_chat()" src="/images/chat.svg" alt="chat"></td>
-		</tr>
-		<tr>
-			<td><img id="player-vol-down" onclick="volume('bg_player','down')" src="/images/player-vol-down.svg" alt="vol-down"></td>
-			<td><img id="player-vol-up" onclick="volume('bg_player','up')" src="/images/player-vol-up.svg" alt="vol-up"></td>
-		</tr>
-	</table>
+<div id="main_table" class="tg-wrap">
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax">TUSOVKA.ML</th>
+    <th id="chat_header" class="tg-0lax hack_chat"></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td id="player-play" class="tg-0lax controls" onclick="play('bg_player')">play</td>
+    <td id="chat_frame" class="tg-0lax hack_chat" rowspan="10">
+    	<iframe id="chat_iframe" src=""></iframe>
+    </td>
+  </tr>
+  <tr>
+    <td id="player-vol-up" class="tg-0lax controls" onclick="volume('bg_player','up')">volume up</td>
+  </tr>
+  <tr>
+    <td id="player-vol-down" class="tg-0lax controls" onclick="volume('bg_player','down')">volume down</td>
+  </tr>
+  <tr>
+    <td id="chat-toggle" class="tg-0lax controls hack_chat" onclick="activate_chat()">Activate chat</td>
+  </tr>
+  <tr>
+    <td id="whos_here" class="tg-0lax">Now listening: somevalue</td>
+  </tr>
+  <tr>
+  	<td id="whos_playin" class="tg-0lax">Stream name</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">What's playing:</td>
+  </tr>
+  <tr>
+  	<td id="whats_playin" class="tg-0lax">Artist - Title</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Schedule:</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">
+    	<p id="stream_description">20:00 actual schedule<br>
+    	21:00 actual schedule<br>
+    	22:00 actual schedule</p>
+	</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax join_chat">
+    	<a target="_blank" rel="noopener noreferrer" href="https://hack.chat/?radiotusovka">Join live chat</a>
+    </td>
+  </tr>
+</tbody>
+</table>
 </div>
 
 <!-- Audio stream -->
-<audio autoload="true" autoplay="true" controls="true" preload="none" id="bg_player">
+<audio autoload="true" autoplay="false" controls="true" preload="none" id="bg_player">
 	<source src="/lobby.mp3" type="audio/mpeg">
-	<source src="http://radio.tusovka.ml:8000/stream.ogg" type="audio/ogg">
-	<source src="http://radio.tusovka.ml:8000/stream.mp3" type="audio/mpeg">
+	<source src="http://radio.tusovka.ml:8000/stream" type="audio/mpeg">
+	<source src="http://radio.tusovka.ml:8000/stream" type="audio/ogg">
 </audio>
 
-<!-- About deployment -->
-<div id="footer">
-<ul id="whats_cookin">
-	<li id="whos_here"></li>
-	<li><a id="whos_playin" href=""></a></li>
-	<li id="whats_playin"></li>
-</ul>
-
-<!-- hack chat section -->
-<dir id="chat">
-	<iframe id="hack-chat" src=""></iframe>
-</dir>
-
-</div>
 </body>
+<!-- <script type="text/javascript">
+function autoResizeDiv() {
+    document.getElementById('main_table').style.height = window.innerHeight +'px';
+    document.getElementById('main_table').style.width = window.innerWidth +'px';
+}
+window.onresize = autoResizeDiv;
+autoResizeDiv();
+</script> -->
 </html>
