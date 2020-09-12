@@ -1,6 +1,14 @@
-var random_id = new Array(8).join().replace(/(.|$)/g, function(){return ((Math.random()*36)|0).toString(36);});
 whats_cookin();
 whos_here();
+
+function getSessionID() {
+  let _id = localStorage['sessionID']
+  if (!_id) {
+    _id = Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
+    localStorage['sessionID'] = _id
+  }
+  return _id
+}
 
 function play(id){
   clearTimeout(whats_cookin);
@@ -80,11 +88,13 @@ function whos_here(){
       } else {
         document.getElementById("whos_here").innerHTML = "Listeners: " + count;
       }
+      
     }
   };
   var url = "whos_here"
+  var params = `?id=${getSessionID()}`
   //+"/"+random_id //global random id see 1st line
-  xhttp.open("GET", url, true);
+  xhttp.open("GET", url+params, true);
   xhttp.send();
   setTimeout(whos_here, 60000); //repeat every minute
 }
