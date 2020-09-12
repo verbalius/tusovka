@@ -62,7 +62,7 @@ def whos_here():
             con.commit()
         else:
             # ------------------- name TEXT, time INTEGER ------------------- 
-            cur.execute(f"INSERT INTO online_users ({TABLE_TIME_COLUMN},{TABLE_ID_COLUMN}) VALUES (?,?);",(_id,now))  
+            cur.execute(f"INSERT INTO online_users ({TABLE_TIME_COLUMN},{TABLE_ID_COLUMN}) VALUES (?,?);",(now, _id))  
             con.commit()
 
         if len(rows) == 0:
