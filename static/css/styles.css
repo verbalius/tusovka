@@ -32,6 +32,10 @@ body {
 	transition-duration: 0.5s;
 }
 
+#main_table {
+	height: 100vh;
+}
+
 #main_table thead {
 	background-color: black;
 	color: white;
@@ -65,8 +69,9 @@ body {
 }
 
 #main_table .tg .tg-0lax {
-	text-align:left;
-	vertical-align:top
+	text-align: left;
+	vertical-align: middle;
+	padding: 5px;
 }
 
 #chat_header {
@@ -78,11 +83,13 @@ body {
 	height: 100%;
 	width: 100%;
 	display: none;
+	padding: 0 !important;
 }
 
 #chat_frame iframe {
 	height: 100%;
 	width: 100%;
+	padding: 0 !important;
 }
 
 .join_chat {
