@@ -4,7 +4,7 @@
 # Github repo: verbalius/tusovka-flask-webapp
 #
 # ----------------------------------------------
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, abort
 import datetime
 import threading
 import json
@@ -17,13 +17,16 @@ application = Flask(__name__,
                     static_url_path='', 
                     static_folder='static/',)
 
+TABLE_ID_COLUMN = 'unique_id'
+TABLE_TIME_COLUMN = 'time'
+
 def create_db_if_not_present():
     with sql.connect("active_users.db") as con:
         cur = con.cursor()
         cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='online_users';")
         #if the count is 0, then create table
         if not cur.fetchone():
-            cur.execute("CREATE TABLE online_users (ip TEXT, time INTEGER);")
+            cur.execute(f"CREATE TABLE online_users ({TABLE_ID_COLUMN} TEXT UNIQUE, {TABLE_TIME_COLUMN} INTEGER);")
             con.commit()
 
     return 0
@@ -42,27 +45,24 @@ def whats_playin():
 @application.route("/whos_here")
 def whos_here():
     # record who is currently on the site listening
-    # attach a timestamp whenver get a whos_here request
-    ip = request.remote_addr
-    now = datetime.datetime.now().minute
-    # pattern = re.compile("^[a-zA-Z0-9]+$")
-    # if pattern.match(id):
-    #     ip = id
-    # else:
-    #     ip = "someone"
+    # attach a timestamp whenever get a whos_here request
+    _id = request.args.get('id')
+    if not _id:
+        abort(400, "you should send 'id' parameter in query!")
 
+    now = datetime.datetime.now().minute
     with sql.connect("active_users.db") as con:
         con.row_factory = sql.Row
         cur = con.cursor()
         cur.execute("SELECT * FROM online_users")
         rows = cur.fetchall()
 
-        if cur.execute("SELECT * FROM online_users WHERE ip=?;", [ip]).fetchall():
-            cur.execute("UPDATE online_users SET time=? WHERE ip=?;",(now,ip))
+        if cur.execute(f"SELECT * FROM online_users WHERE {TABLE_ID_COLUMN}=?;", [_id]).fetchall():
+            cur.execute(f"UPDATE online_users SET {TABLE_TIME_COLUMN}=? WHERE {TABLE_ID_COLUMN}=?;",(now,_id))
             con.commit()
         else:
             # ------------------- name TEXT, time INTEGER ------------------- 
-            cur.execute("INSERT INTO online_users (ip,time) VALUES (?,?);",(ip,now))  
+            cur.execute(f"INSERT INTO online_users ({TABLE_TIME_COLUMN},{TABLE_ID_COLUMN}) VALUES (?,?);",(_id,now))  
             con.commit()
 
         if len(rows) == 0:
@@ -82,7 +82,7 @@ def whos_tf_here(what_to_do="run"):
     # kick inactive listeners if they were out for more than 2 minutes
     with sql.connect("active_users.db") as con:
         cur = con.cursor()
-        cur.execute("DELETE FROM online_users WHERE ABS(time-?) > 2;", [now])
+        cur.execute(f"DELETE FROM online_users WHERE ABS({TABLE_TIME_COLUMN}-?) > 2;", [now])
         con.commit()
 
     # schedule next occurence in 2 minutes if not "stop"
