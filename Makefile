@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-dev: application.py env/
+dev: application.py
 	(\
 		openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ssl-certificates/tusovka.key -out ssl-certificates/tusovka.crt; \
 		python3 -m venv env; \
@@ -9,7 +9,7 @@ dev: application.py env/
 		python application.py;
 	)
 
-guni: application.py env/
+guni: application.py
 	(\
 		python3 -m venv env; \
 		source env/bin/activate; \
