@@ -1,6 +1,8 @@
-whats_cookin();
-whos_here();
-play('bg_player');
+document.addEventListener("DOMContentLoaded", function(event) { 
+  whats_cookin();
+  whos_here();
+  play('bg_player');
+});
 
 function getSessionID() {
   let _id = localStorage['sessionID']
