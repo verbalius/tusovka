@@ -36,8 +36,8 @@ function volume(id, direction){
   } else if(player.volume <= 1 && direction == "up") {
   	if (player.volume + 1/steps >= 1) {
   		player.volume = 1
-  		if (volume_click_counter==4){
-  			alert("глухий/a?")
+  		if (volume_click_counter > 4){
+  			alert("Варто сходити до ЛОРа..")
   			volume_click_counter=0
   		} else {
   			volume_click_counter++
