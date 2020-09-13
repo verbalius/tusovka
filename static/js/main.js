@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
   whats_cookin();
   whos_here();
-  play('bg_player');
 });
 
 function getSessionID() {
