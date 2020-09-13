@@ -2,8 +2,6 @@ SHELL=/bin/bash
 
 dev: application.py
 	(\
-		echo "creating cerificate" && \
-		sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./ssl-certificates/tusovka.key -out ./ssl-certificates/tusovka.crt && \
 		echo "creating python3 env" && \
 		python3 -m venv env && \
 		source ./env/bin/activate && \

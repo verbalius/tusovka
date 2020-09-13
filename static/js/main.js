@@ -17,7 +17,9 @@ function play(id){
   player = document.getElementById(id);
   // bg = document.getElementById('video-player');
   button = document.getElementById('player-play');
-  document.getElementById('player-play').innerHTML = "pause"; 
+  document.getElementById('player-play').innerHTML = "▪ Pause";
+  document.getElementById('parrot').setAttribute("src", "/images/partyparrot.gif");
+  document.getElementById('parrot_icon').setAttribute("href", "/images/partyparrot.gif");
   button.setAttribute("onclick", "pause('bg_player')"); 
   player.load();
   player.play();
@@ -29,7 +31,9 @@ function pause(id){
   player = document.getElementById(id);
   // bg = document.getElementById('video-player');
   button = document.getElementById('player-play');
-  button.innerHTML = "play"; 
+  button.innerHTML = "▸ Play"; 
+  document.getElementById('parrot').setAttribute("src", "/images/confusedparrot.gif");
+  document.getElementById('parrot_icon').setAttribute("href", "/images/confusedparrot.gif");
   button.setAttribute("onclick", "play('bg_player')"); 
   player.pause();
   // bg.pause();
@@ -111,8 +115,8 @@ function whos_here(){
 function whats_cookin(mode) {
   if (mode == "stop") {
     clearTimeout(whats_cookin);
-    document.getElementById("whos_playin").innerHTML = "Press play to fetch";
-    document.getElementById("whats_playin").innerHTML = "Press play to fetch";
+    // document.getElementById("whos_playin").innerHTML = "Press play to fetch";
+    // document.getElementById("whats_playin").innerHTML = "Press play to fetch";
     return;
   }
   var xhttp = new XMLHttpRequest();

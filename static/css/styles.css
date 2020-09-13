@@ -1,13 +1,9 @@
-html {
-	overflow: hidden;
-}
-
 body {
 	font-family: mono;
 	font-size: 16pt;
 	color: black;
 	min-height: 100vh;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	padding: 0;
 	margin: 0;
 
@@ -15,6 +11,10 @@ body {
 	animation-duration: 10s;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
+}
+
+a {
+	color: black;
 }
 
 .controls {
@@ -120,7 +120,7 @@ body {
 	}
 
 	.join_chat {
-		display: block;
+		display: table-cell;
 	}
 }
 

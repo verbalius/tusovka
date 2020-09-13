@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Mykola Radio | Home</title>
+	<title>Tusovka | Home</title>
 	<meta charset="UTF-8">
 	<html lang="en-US">
 	<head profile="http://www.w3.org/2005/10/profile">
-	<link rel="icon" type="image/ico" href="/images/favicon.ico">
+	<link id="parrot_icon" rel="icon" href="/images/boredparrot.gif" type="image/gif" >
 	<link rel="stylesheet" href="/css/styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="/js/main.js"></script>
@@ -15,22 +15,22 @@
 <table class="tg">
 <thead>
   <tr>
-    <th class="tg-0lax">TUSOVKA.ML</th>
+    <th class="tg-0lax">TUSOVKA.ML<img id="parrot" style="max-height: 25px" src="/images/boredparrot.gif"></th>
     <th id="chat_header" class="tg-0lax hack_chat"></th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td id="player-play" class="tg-0lax controls" onclick="play('bg_player')">play</td>
-    <td id="chat_frame" class="tg-0lax hack_chat" rowspan="10">
+    <td id="player-play" class="tg-0lax controls" onclick="play('bg_player')">▸ Play</td>
+    <td id="chat_frame" class="tg-0lax hack_chat" rowspan="11">
     	<iframe id="chat_iframe" src=""></iframe>
     </td>
   </tr>
   <tr>
-    <td id="player-vol-up" class="tg-0lax controls" onclick="volume('bg_player','up')">volume up</td>
+    <td id="player-vol-up" class="tg-0lax controls" onclick="volume('bg_player','up')">▴ Volume up</td>
   </tr>
   <tr>
-    <td id="player-vol-down" class="tg-0lax controls" onclick="volume('bg_player','down')">volume down</td>
+    <td id="player-vol-down" class="tg-0lax controls" onclick="volume('bg_player','down')">▾ Volume down</td>
   </tr>
   <tr>
     <td id="chat-toggle" class="tg-0lax controls hack_chat" onclick="activate_chat()">Activate chat</td>
@@ -52,20 +52,20 @@
   </tr>
   <tr>
     <td class="tg-0lax">
-    	<p id="stream_description">20:00 actual schedule<br>
-    	21:00 actual schedule<br>
-    	22:00 actual schedule</p>
+    	<span id="stream_description">Here will be description or schedule of the stream</span>
 	</td>
   </tr>
   <tr>
-    <td class="tg-0lax join_chat">
-    	<a target="_blank" rel="noopener noreferrer" href="https://hack.chat/?radiotusovka">Join live chat</a>
+    <td class="tg-0lax">
+      <a target="_blank" rel="noopener noreferrer" href="/about">About</a>
     </td>
+  </tr>
+  <tr>
+    <td class="tg-0lax join_chat"><a target="_blank" rel="noopener noreferrer" href="https://hack.chat/?radiotusovka">Join live chat</a></td>
   </tr>
 </tbody>
 </table>
 </div>
-
 <!-- Audio stream -->
 <audio autoload="true" autoplay="false" controls="true" preload="none" id="bg_player">
 	<source src="http://radio.tusovka.ml:8000/stream" type="audio/mpeg">
