@@ -1,6 +1,18 @@
+var parrot = document.getElementById('parrot');
+var parrot_icon = document.getElementById('parrot_icon');
+var play_pause_button = document.getElementById('player-play');
+var chat_header = document.getElementById('chat_header');
+var chat = document.getElementById('chat_frame');
+var chat_iframe = document.getElementById('chat_iframe');
+var chat_toggle = document.getElementById('chat-toggle');
+var whos_playin_field = document.getElementById("whos_playin");
+var whos_here_field = document.getElementById("whos_here");
+var whats_playin_field = document.getElementById("whats_playin");
+var stream_description_field = document.getElementById("stream_description");
+
 whats_cookin();
 whos_here();
-play();
+play('bg_player');
 
 function getSessionID() {
   let _id = localStorage['sessionID']
@@ -16,11 +28,10 @@ function play(id){
   whats_cookin();
   player = document.getElementById(id);
   // bg = document.getElementById('video-player');
-  button = document.getElementById('player-play');
-  document.getElementById('player-play').innerHTML = "▪ Pause";
-  document.getElementById('parrot').setAttribute("src", "/images/partyparrot.gif");
-  document.getElementById('parrot_icon').setAttribute("href", "/images/partyparrot.gif");
-  button.setAttribute("onclick", "pause('bg_player')"); 
+  play_pause_button.innerHTML = "▪ Pause";
+  parrot.setAttribute("src", "/images/partyparrot.gif");
+  parrot_icon.setAttribute("href", "/images/partyparrot.gif");
+  play_pause_button.setAttribute("onclick", "pause('bg_player')"); 
   player.load();
   player.play();
   // bg.play();
@@ -30,16 +41,15 @@ function pause(id){
   whats_cookin("stop");
   player = document.getElementById(id);
   // bg = document.getElementById('video-player');
-  button = document.getElementById('player-play');
-  button.innerHTML = "▸ Play"; 
-  document.getElementById('parrot').setAttribute("src", "/images/confusedparrot.gif");
-  document.getElementById('parrot_icon').setAttribute("href", "/images/confusedparrot.gif");
-  button.setAttribute("onclick", "play('bg_player')"); 
+  play_pause_button.innerHTML = "▸ Play"; 
+  parrot.setAttribute("src", "/images/confusedparrot.gif");
+  parrot_icon.setAttribute("href", "/images/confusedparrot.gif");
+  play_pause_button.setAttribute("onclick", "play('bg_player')"); 
   player.pause();
   // bg.pause();
 }
 
-volume_click_counter = 0;
+var volume_click_counter = 0;
 
 function volume(id, direction){
   player = document.getElementById(id);
@@ -55,7 +65,7 @@ function volume(id, direction){
   } else if(player.volume <= 1 && direction == "up") {
   	if (player.volume + 1/steps >= 1) {
   		player.volume = 1
-  		if (volume_click_counter > 4){
+  		if (volume_click_counter == 4){
   			alert("Варто сходити до ЛОРа..")
   			volume_click_counter=0
   		} else {
@@ -68,27 +78,19 @@ function volume(id, direction){
 }
 
 function activate_chat() {
-  chat_header = document.getElementById('chat_header');
-  chat = document.getElementById('chat_frame');
-  chat_iframe = document.getElementById('chat_iframe');
   chat_iframe.setAttribute("src", "https://hack.chat/?radiotusovka"); 
   chat.setAttribute("style", "display: table-cell")
   chat_header.setAttribute("style", "display: table-header-group")
-  button = document.getElementById('chat-toggle');
-  document.getElementById('chat-toggle').innerHTML = "Deactivate chat"
-  button.setAttribute("onclick", "deactivate_chat()"); 
+  chat_toggle.innerHTML = "Deactivate chat";
+  chat_toggle.setAttribute("onclick", "deactivate_chat()"); 
 }
 
 function deactivate_chat() {
-  chat_header = document.getElementById('chat_header');
-  chat = document.getElementById('chat_frame');
-  chat_iframe = document.getElementById('chat_iframe');
   chat_iframe.setAttribute("src", "");
   chat.setAttribute("style", "display: none")
-  chat_header.setAttribute("style", "display: none")
-  button = document.getElementById('chat-toggle');
-  document.getElementById('chat-toggle').innerHTML = "Activate chat"
-  button.setAttribute("onclick", "activate_chat()"); 
+  chat_header.setAttribute("style", "display: none");
+  chat_toggle.innerHTML = "Activate chat";
+  chat_toggle.setAttribute("onclick", "activate_chat()"); 
 }
 
 function whos_here(){
@@ -97,9 +99,9 @@ function whos_here(){
     if (this.readyState == 4 && this.status == 200) {
       var count = this.responseText;
       if ( count == '1' ){
-        document.getElementById("whos_here").innerHTML = "You are the one listening"
+        whos_here_field.innerHTML = "You are the one listening";
       } else {
-        document.getElementById("whos_here").innerHTML = "Listeners: " + count;
+        whos_here_field.innerHTML = "Listeners: " + count;
       }
       
     }
@@ -132,37 +134,38 @@ function whats_cookin(mode) {
   setTimeout(whats_cookin, 30000);
 }
 
+
 function parse_who_and_what(raw_json_data) {
   var json_data = JSON.parse(raw_json_data);
   if ( json_data.icestats.source ) {
     if ( json_data.icestats.source[0] ){
-      document.getElementById("whos_playin").innerHTML = json_data.icestats.source[0].server_name;
-      document.getElementById("whos_playin").href = '/'+json_data.icestats.source[0].server_name;
+      whos_playin_field.innerHTML = json_data.icestats.source[0].server_name;
+      whos_playin_field.href = '/'+json_data.icestats.source[0].server_name;
 
       // mp3 and ogg have different format of metadata in resulting json, need to parse them differently
 
       if ( json_data.icestats.source[0].server_type == "audio/mpeg" ){
-        document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].title;
+        whats_playin_field.innerHTML = json_data.icestats.source[0].title;
       } else if ( json_data.icestats.source[0].server_type == "application/ogg" ){
-        document.getElementById("whats_playin").innerHTML = json_data.icestats.source[0].artist + ' - ' + json_data.icestats.source[0].title;
+        whats_playin_field.innerHTML = json_data.icestats.source[0].artist + ' - ' + json_data.icestats.source[0].title;
       } else {
-        document.getElementById("whats_playin").innerHTML = "ID : ID";
+        whats_playin_field.innerHTML = "ID : ID";
       }
     } else {
-      document.getElementById("whos_playin").innerHTML = json_data.icestats.source.server_name;
-      document.getElementById("whos_playin").href = '/'+json_data.icestats.source.server_name;
+      whos_playin_field.innerHTML = json_data.icestats.source.server_name;
+      whos_playin_field.href = '/'+json_data.icestats.source.server_name;
       if ( json_data.icestats.source.server_type == "audio/mpeg" ){
-        document.getElementById("whats_playin").innerHTML = json_data.icestats.source.title;
+        whats_playin_field.innerHTML = json_data.icestats.source.title;
       } else if ( json_data.icestats.source.server_type == "application/ogg" ){
-        document.getElementById("whats_playin").innerHTML = json_data.icestats.source.artist + ' - ' + json_data.icestats.source.title;
+        whats_playin_field.innerHTML = json_data.icestats.source.artist + ' - ' + json_data.icestats.source.title;
       } else {
-        document.getElementById("whats_playin").innerHTML = "ID : ID";
+        whats_playin_field.innerHTML = "ID : ID";
       }
     }
 
-    document.getElementById("stream_description").innerHTML = json_data.icestats.source.server_description;
+    stream_description_field.innerHTML = json_data.icestats.source.server_description;
   } else {
-    document.getElementById("whos_playin").innerHTML = "Nobody's playing..";
-    document.getElementById("whats_playin").innerHTML = "Check back later ;)";
+    whos_playin_field.innerHTML = "Nobody's playing..";
+    whats_playin_field.innerHTML = "Check back later ;)";
   }
 }
