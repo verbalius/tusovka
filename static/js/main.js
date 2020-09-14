@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
   whats_cookin();
-  whos_here();
+  // whos_here();
 });
 
 function getSessionID() {
@@ -134,10 +134,10 @@ function parse_who_and_what(raw_json_data) {
         document.getElementById("whats_playin").innerHTML = "ID : ID";
       }
     } else {
-      if ( json_data.icestats.source[0].listeners == '1' ){
+      if ( json_data.icestats.source.listeners == '1' ){
         document.getElementById("whos_here").innerHTML = "You are the one listening"
       } else {
-        document.getElementById("whos_here").innerHTML = "Listeners: " + json_data.icestats.source[0].listeners;
+        document.getElementById("whos_here").innerHTML = "Listeners: " + json_data.icestats.source.listeners;
       }
       document.getElementById("whos_playin").innerHTML = json_data.icestats.source.server_name;
       document.getElementById("whos_playin").href = '/'+json_data.icestats.source.server_name;
