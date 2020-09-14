@@ -92,27 +92,6 @@ function deactivate_chat() {
   button.setAttribute("onclick", "activate_chat()"); 
 }
 
-function whos_here(){
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange=function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var count = this.responseText;
-      if ( count == '1' ){
-        document.getElementById("whos_here").innerHTML = "You are the one listening"
-      } else {
-        document.getElementById("whos_here").innerHTML = "Listeners: " + count;
-      }
-      
-    }
-  };
-  var url = "whos_here"
-  var params = `?id=${getSessionID()}`
-  //+"/"+random_id //global random id see 1st line
-  xhttp.open("GET", url+params, true);
-  xhttp.send();
-  setTimeout(whos_here, 60000); //repeat every minute
-}
-
 function whats_cookin(mode) {
   if (mode == "stop") {
     clearTimeout(whats_cookin);
@@ -140,6 +119,11 @@ function parse_who_and_what(raw_json_data) {
       document.getElementById("whos_playin").innerHTML = json_data.icestats.source[0].server_name;
       document.getElementById("whos_playin").href = '/'+json_data.icestats.source[0].server_name;
 
+      if ( json_data.icestats.source[0].listeners == '1' ){
+        document.getElementById("whos_here").innerHTML = "You are the one listening"
+      } else {
+        document.getElementById("whos_here").innerHTML = "Listeners: " + json_data.icestats.source[0].listeners;
+      }
       // mp3 and ogg have different format of metadata in resulting json, need to parse them differently
 
       if ( json_data.icestats.source[0].server_type == "audio/mpeg" ){
@@ -150,6 +134,11 @@ function parse_who_and_what(raw_json_data) {
         document.getElementById("whats_playin").innerHTML = "ID : ID";
       }
     } else {
+      if ( json_data.icestats.source[0].listeners == '1' ){
+        document.getElementById("whos_here").innerHTML = "You are the one listening"
+      } else {
+        document.getElementById("whos_here").innerHTML = "Listeners: " + json_data.icestats.source[0].listeners;
+      }
       document.getElementById("whos_playin").innerHTML = json_data.icestats.source.server_name;
       document.getElementById("whos_playin").href = '/'+json_data.icestats.source.server_name;
       if ( json_data.icestats.source.server_type == "audio/mpeg" ){
@@ -160,7 +149,6 @@ function parse_who_and_what(raw_json_data) {
         document.getElementById("whats_playin").innerHTML = "ID : ID";
       }
     }
-
     document.getElementById("stream_description").innerHTML = json_data.icestats.source.server_description;
   } else {
     document.getElementById("whos_playin").innerHTML = "Nobody's playing..";
