@@ -151,7 +151,7 @@ function parse_who_and_what(raw_json_data) {
     }
     document.getElementById("stream_description").innerHTML = json_data.icestats.source.server_description;
   } else {
-    document.getElementById("whos_playin").innerHTML = "Nobody's playing..";
-    document.getElementById("whats_playin").innerHTML = "Check back later ;)";
+    document.getElementById("whos_playin").innerHTML = "Nobody's playing right now, check <a href='/schedule'>schedule</a>;"
+    document.getElementById("whats_playin").innerHTML = "Artist - Title";
   }
 }

@@ -41,6 +41,10 @@ def root():
 def whats_playin():
     return get('http://radio.tusovka.ml:8000/status-json.xsl').content
 
+@application.route("/schedule")
+def schedule():
+    return render_template("schedule.html")
+
 
 # @application.route("/whos_here")
 # def whos_here():
