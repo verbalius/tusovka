@@ -13,11 +13,15 @@ body {
 	animation-direction: alternate;
 }
 
-.svg_1 {
-	animation-name: backgroundColorPalette;
-	animation-duration: 10s;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
+#logo {
+	max-height: 40px;
+}
+
+#parrot {
+	bottom: 0;
+	right: 0;
+	padding: 5px;
+	max-height: 40px;
 }
 
 a {
@@ -135,22 +139,17 @@ a {
 @keyframes backgroundColorPalette{
 	0% {
 		background: #EE6055;
-		fill: #EE6055;
 	}
 	25% {
 		background: #60D394;
-		fill: #60D394;
 	}
 	50% {
 		background: #AAF683;
-		fill: #AAF683;
 	}
 	75% {
 		background: #FFD97D;
-		fill: #FFD97D;
 	}
 	100% {
 		background: #FF9B85;
-		fill: #FF9B85;
 	}
 }
