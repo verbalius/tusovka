@@ -1,10 +1,5 @@
-@font-face {
-  font-family: "Peace Sans";
-  src: url("/Peace Sans.otf");
- }
-
 body {
-	font-family: "Peace Sans";
+	font-family: monospace;
 	font-size: 16pt;
 	color: black;
 	min-height: 100vh;
