@@ -37,7 +37,7 @@ services:
       - ICECAST_RELAY_PASSWORD=dddd
       - ICECAST_HOSTNAME=eeee
     ports:
-      - 8000
+      - 8000:8000
     networks:
       - nginx_network
 
