@@ -10,7 +10,7 @@ services:
     networks:
       - nginx_network
     ports:
-      - 5000:5000
+      - 5000
   
   nginx:
     image: nginx:latest
@@ -37,7 +37,9 @@ services:
       - ICECAST_RELAY_PASSWORD=dddd
       - ICECAST_HOSTNAME=eeee
     ports:
-      - 8000:8000
+      - 8000
+    networks:
+      - nginx_network
 
 networks:
   nginx_network:
