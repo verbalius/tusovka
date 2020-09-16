@@ -22,6 +22,7 @@ body {
 	right: 0;
 	padding: 5px;
 	max-height: 40px;
+	position: absolute;
 }
 
 a {
