@@ -4,8 +4,8 @@
 
 See docker-compose.yaml
 
- 80,443 [NGINX] <-> [gunicorn container | python app]
- 8000 [Icecast server]
+ tusovka.ml 80,443 [NGINX] <-> 5000 [gunicorn container | python app]
+ radio.tusovka.ml 80,443 [NGINX] <-> 8000 [Icecast server]
 
 ## Staging Heroku
 
