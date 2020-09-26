@@ -1,0 +1,44 @@
+stages: 
+    - test
+    - staging
+    - production
+
+test:
+    stage: test
+    image: docker/compose
+    only:
+        - master
+    variables:
+        DOCKER_HOST: tcp://docker:2375
+        ICECAST_SOURCE_PASSWORD: test
+        ICECAST_ADMIN_PASSWORD: test
+        ICECAST_PASSWORD: test
+        ICECAST_RELAY_PASSWORD: test
+        ICECAST_HOSTNAME: test
+    services:
+        - docker:dind
+    script:
+        - mv ssl-certificates/test.crt ssl-certificates/tusovka.crt
+        - mv ssl-certificates/test.key ssl-certificates/tusovka.key
+        - docker-compose up --build --detach
+
+deploy_staging:
+    stage: staging
+    variables:
+        SOME_VAR1: lol
+        SOME_VAR1: kek
+    only:
+        - master
+    script: |
+        echo "stage"
+
+deploy_prod:
+    stage: production
+    variables:
+        SOME_VAR1: lol
+        SOME_VAR1: kek
+    when: manual
+    only: 
+        - production
+    script: |
+        echo "delp"
