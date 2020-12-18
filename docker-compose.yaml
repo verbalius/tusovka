@@ -3,16 +3,16 @@ version: '3'
 services:
 
   flaskapp:
+    container_name: flaskapp
     build: .
     volumes:
       - .:/app/
       - ./static:/opt/services/flaskapp/src
     networks:
       - nginx_network
-    ports:
-      - 5000
   
   nginx:
+    container_name: nginx
     image: nginx:latest
     ports:
       - 80:80
@@ -27,6 +27,7 @@ services:
       - nginx_network
 
   icecast:
+    container_name: icecast
     image: moul/icecast
     environment:
       - ICECAST_SOURCE_PASSWORD=$ICECAST_SOURCE_PASSWORD
@@ -39,6 +40,32 @@ services:
     networks:
       - nginx_network
 
+  letsencrypt_certbot:
+    container_name: letsencrypt_certbot
+    image: certbot/certbot:latest
+    restart: on-failure
+    cpus: 0.25
+    mem_limit: 150000000
+    entrypoint: "/bin/sh -c 'trap exit TERM; 
+        while :; do
+            certbot renew;
+            sleep 30d & wait $${!}; 
+        done;'"
+    volumes:
+        - ssl_certificates:/etc/letsencrypt
+        - certbot_www:/var/www/certbot
+    networks:
+        - nginx_network
+    depends_on:
+        - tusovka_nginx
+
 networks:
   nginx_network:
+    name: nginx_network
     driver: bridge
+
+volumes:
+    ssl_certificates:
+        name: ssl_certificates
+    certbot_www:
+        name: certbot_www
